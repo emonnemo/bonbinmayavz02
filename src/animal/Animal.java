@@ -1,7 +1,7 @@
 package animal;
 import java.util.TreeSet;
 import java.util.Set;
-import pair.Pair;
+import pair.Pair=
 /**
  * Created by ASUS INDONESIA on 3/27/2017.
  */
@@ -350,7 +350,7 @@ public class Animal{
             compatible.add("SGL");
         } else if (_id == "GSE") {
             goose_nb++;
-            foof = 0.3;
+            food = 0.3;
             habitat.add('W');
             habitat.add('A');
             compatible.add("MRE");
@@ -371,6 +371,7 @@ public class Animal{
             compatible.add("SGL");
         } else if (_id == "CRN") {
             crane_nb++;
+
         } else if (_id == "DRL") {
             draco_lizard_nb++;
         } else if (_id == "CLG") {
