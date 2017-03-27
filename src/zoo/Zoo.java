@@ -15,7 +15,7 @@ public class Zoo {
     private ArrayList<Object> animals;    /**< daftar Animals yang ada dalam zoo*/
     private int[][] cage_map;    /**< matriks penanda nomor cage dalam zoo*/
     private int cage_nb; /**< jumlah cage yang ada dalam zoo*/
-    
+
     /**
      * \brief Constructor
      * \details Mengenerate kebun binatang dari file eksternal denangan list hewan kosong
@@ -86,7 +86,16 @@ public class Zoo {
      * \return Total daging yang dibutuhkan zoo
      */
     public float GetTotalMeat(){
-
+        float sum = 0;
+        for (int i = 0; i < animals.size(); i++) {
+            if (GetType(*it) == 'K') {
+                sum += GetWeight(*it) * GetEat(*it);
+            }
+            else if (GetType(*it) == 'O') {
+                sum += 0.5 * GetWeight(*it) * GetEat(*it);
+            }
+        }
+        return sum;
     }
 
     /**
@@ -105,7 +114,17 @@ public class Zoo {
      * \param direction 0 untuk ke atas, 1 untuk ke kiri, 2 untuk ke kanan, 3 untuk ke bawah
      */
     public void MoveAnimal(pair<int,int> pos, int direction){
-
+        /*
+        list<Pointer>::iterator it = animals.begin();
+        list<Pointer>::iterator e = animals.end();
+        --e;
+        while (GetId(*it) != _id && GetNumber(*it) != _number && it != e) {
+            ++it;
+        }
+        if (GetId(*it) == _id && GetNumber(*it) == _number) {
+            MoveAnimal(GetPos(*it), direction);
+        }
+        */
     }
 
     /**
