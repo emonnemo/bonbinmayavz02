@@ -24,7 +24,6 @@ public class Zoo {
      * \details Mengenerate kebun binatang dari file eksternal denangan list hewan kosong
      */
     public Zoo(){
-
     }
     
     /**
