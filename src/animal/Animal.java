@@ -1,5 +1,7 @@
 package animal;
 import java.util.TreeSet;
+import java.util.Set;
+import pair.Pair;
 /**
  * Created by ASUS INDONESIA on 3/27/2017.
  */
