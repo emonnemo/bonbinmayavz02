@@ -7,6 +7,8 @@ import animal.Animal;
 import cell.Cell;
 import pair.Pair;
 import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.Random;
 
 /** \brief Class Zoo
  * \details Kelas Zoo yang berisi kebun binatang itu sendiri beserta hewan-hewannya
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class Zoo {
     private int width; /**< dimensi zoo; jumlah baris*/
     private int length;    /**< dimensi zoo; jumlah kolom*/
-    private Cell cells; /**< matriks Cell yang dimiliki zoo*/
+    private Cell[][] cells; /**< matriks Cell yang dimiliki zoo*/
     private ArrayList<Animal> animals;    /**< daftar Animals yang ada dalam zoo*/
     private int[][] cage_map;    /**< matriks penanda nomor cage dalam zoo*/
     private int cage_nb; /**< jumlah cage yang ada dalam zoo*/
@@ -40,7 +42,12 @@ public class Zoo {
      * \details Menampilkan kebun binatang ke layar
      */
     public void Display(int x1, int y1, int x2, int y2){
-
+        for (int i = x1; i <= x2; ++i) {
+            for (int j = y1; j <= y2; ++j) {
+                System.out.print(cells[i][j].GetSymbol());
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -48,7 +55,7 @@ public class Zoo {
      * \details Mengembalikan iterator hewan yang berada di pos
      *
      * \param pos posisi Animal saat itu
-     * \return int untuk indeks arraylist animal
+     * \return int untuk indeks arraylist animals
      */
     public int FindAnimal(Pair pos){
 
@@ -57,9 +64,9 @@ public class Zoo {
 
     /** \brief AddAnimal
      * \details Menambahkan hewan pada kebun binatang
-     * \param animal hewan yang akan ditambahkan
+     * \param animals hewan yang akan ditambahkan
      */
-    public void AddAnimal(Animal animal){
+    public void AddAnimal(Animal animals){
 
     }
 
@@ -70,7 +77,16 @@ public class Zoo {
      * \param _number nomor pada jenis hewan tersebut
      */
     public void DelAnimal(String _id, int _number){
-
+        int i = 0;
+        while (animals.get(i).GetId().equals(_id) && animals.get(i).GetNumber() != _number && i < animals.size() - 1) {
+            ++i;
+        }
+        if (animals.get(i).GetId() == _id && animals.get(i).GetNumber() == _number) {
+            animals.remove(i);
+        }
+        int posx = animals.get(i).GetPos().first;
+        int posy = animals.get(i).GetPos().second;
+        //MakroSetterCell(SetSymbol,cells[posx][posy],GetInitSymbol(cells[posx][posy]));
     }
 
     /**
@@ -121,29 +137,29 @@ public class Zoo {
 
     /**
      * \brief MoveAnimal dengan posisi
-     * \details Menggerakkan animal dengan id=_id dan number=_number
+     * \details Menggerakkan animals dengan id=_id dan number=_number
      * \param pos posisi hewan
      * \param direction 0 untuk ke atas, 1 untuk ke kiri, 2 untuk ke kanan, 3 untuk ke bawah
      */
     public void MoveAnimal(Pair pos, int direction){
-        int i = 0;
-        while (animal.get(i).GetId() != _id && animals.get(i).GetNumber() != _number && i < animals.size() - 1) {
-            ++i;
-        }
-        if (animal.get(i).GetId() == _id && animal.get(i).GetNumber() == _number) {
-            MoveAnimal(animal.get(i).GetPos(), direction);
-        }
+
     }
 
     /**
      * \brief MoveAnimal dengan id
-     * \details Menggerakkan animal dengan id=_id dan number=_number ke arah sesuai direction sebanyak 1 langkah jika memungkinkan (tidak melewati sekat)
+     * \details Menggerakkan animals dengan id=_id dan number=_number ke arah sesuai direction sebanyak 1 langkah jika memungkinkan (tidak melewati sekat)
      * \param _id jenis hewan 
      * \param _number no number pada jenis hewan
      * \param direction 0 untuk ke atas, 1 untuk ke kiri, 2 untuk ke kanan, 3 untuk ke bawah
      */
     public void MoveAnimal(String _id, int _number, int direction){
-
+        int i = 0;
+        while (animals.get(i).GetId() != _id && animals.get(i).GetNumber() != _number && i < animals.size() - 1) {
+            ++i;
+        }
+        if (animals.get(i).GetId() == _id && animals.get(i).GetNumber() == _number) {
+            MoveAnimal(animals.get(i).GetPos(), direction);
+        }
     }
 
     /**
@@ -151,7 +167,10 @@ public class Zoo {
      * \details Menggerakkan semua hewan secara acak
      */
     public void MoveAllAnimal(){
-
+        Random random = new Random();
+        for (int i = 0; i < animals.size(); i++) {
+            MoveAnimal(animals.get(i).GetPos(),random.nextInt(4));
+        }
     }
 
     /**
