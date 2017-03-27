@@ -3,6 +3,9 @@
 
 package zoo;
 
+import animal.Animal;
+import cell.Cell;
+import pair.Pair;
 import java.util.ArrayList;
 
 /** \brief Class Zoo
@@ -11,8 +14,8 @@ import java.util.ArrayList;
 public class Zoo {
     private int width; /**< dimensi zoo; jumlah baris*/
     private int length;    /**< dimensi zoo; jumlah kolom*/
-    private Object cells; /**< matriks Cell yang dimiliki zoo*/
-    private ArrayList<Object> animals;    /**< daftar Animals yang ada dalam zoo*/
+    private Cell cells; /**< matriks Cell yang dimiliki zoo*/
+    private ArrayList<Animal> animals;    /**< daftar Animals yang ada dalam zoo*/
     private int[][] cage_map;    /**< matriks penanda nomor cage dalam zoo*/
     private int cage_nb; /**< jumlah cage yang ada dalam zoo*/
 
@@ -46,17 +49,18 @@ public class Zoo {
      * \details Mengembalikan iterator hewan yang berada di pos
      *
      * \param pos posisi Animal saat itu
-     * \return iterator untuk list Animal
+     * \return int untuk indeks arraylist animal
      */
-    public ArrayList<Object>::iterator FindAnimal(pair<int,int> pos){
+    public int FindAnimal(Pair pos){
 
+        return 0;
     }
 
     /** \brief AddAnimal
      * \details Menambahkan hewan pada kebun binatang
      * \param animal hewan yang akan ditambahkan
      */
-    public void AddAnimal(Object animal){
+    public void AddAnimal(Animal animal){
 
     }
 
@@ -88,11 +92,11 @@ public class Zoo {
     public float GetTotalMeat(){
         float sum = 0;
         for (int i = 0; i < animals.size(); i++) {
-            if (GetType(*it) == 'K') {
-                sum += GetWeight(*it) * GetEat(*it);
+            if (animals.get(i).GetType() == 'K') {
+                sum += animals.get(i).GetWeight() * animals.get(i).GetEat();
             }
-            else if (GetType(*it) == 'O') {
-                sum += 0.5 * GetWeight(*it) * GetEat(*it);
+            else if (animals.get(i).GetType() == 'O') {
+                sum += 0.5 * animals.get(i).GetWeight() * animals.get(i).GetEat();
             }
         }
         return sum;
@@ -104,7 +108,16 @@ public class Zoo {
      * \return Total sayur yang dibutuhkan zoo
      */
     public float GetTotalVegetables(){
-
+        float sum = 0;
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).GetType() == 'H') {
+                sum += animals.get(i).GetWeight() * animals.get(i).GetEat();
+            }
+            else if (animals.get(i).GetType() == 'O') {
+                sum += 0.5 * animals.get(i).GetWeight() * animals.get(i).GetEat();
+            }
+        }
+        return sum;
     }
 
     /**
@@ -113,18 +126,14 @@ public class Zoo {
      * \param pos posisi hewan
      * \param direction 0 untuk ke atas, 1 untuk ke kiri, 2 untuk ke kanan, 3 untuk ke bawah
      */
-    public void MoveAnimal(pair<int,int> pos, int direction){
-        /*
-        list<Pointer>::iterator it = animals.begin();
-        list<Pointer>::iterator e = animals.end();
-        --e;
-        while (GetId(*it) != _id && GetNumber(*it) != _number && it != e) {
-            ++it;
+    public void MoveAnimal(Pair pos, int direction){
+        int i = 0;
+        while (animal.get(i).GetId() != _id && animals.get(i).GetNumber() != _number && i < animals.size() - 1) {
+            ++i;
         }
-        if (GetId(*it) == _id && GetNumber(*it) == _number) {
-            MoveAnimal(GetPos(*it), direction);
+        if (animal.get(i).GetId() == _id && animal.get(i).GetNumber() == _number) {
+            MoveAnimal(animal.get(i).GetPos(), direction);
         }
-        */
     }
 
     /**
@@ -180,7 +189,7 @@ public class Zoo {
      * \param pos posisi cage
      * \param cage_number nomor cage
      */
-    public void InteractCage(pair<int, int> pos, int cage_number){
+    public void InteractCage(Pair pos, int cage_number){
 
     }
 }
